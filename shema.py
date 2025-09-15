@@ -4,8 +4,8 @@ from typing import Optional
 
 # Modele Auteur
 class CreateAuteur(BaseModel):
-    nom: str = Field(..., alias="nom_auteur")
-    prenom: str = Field(..., alias="prenom_auteur")
+    nom_auteur: str 
+    prenom_auteur: str 
     nationalite: str
 
     class Config:
@@ -13,8 +13,16 @@ class CreateAuteur(BaseModel):
 
 class AuteurResponse(BaseModel):
     id_auteur: int
-    nom: str = Field(..., alias="nom_auteur")
-    prenom: str = Field(..., alias="prenom_auteur")
+    nom_auteur: str 
+    prenom_auteur: str 
+    nationalite: str
+
+    class Config:
+        from_attributes = True  
+    
+class AuteurUpdate(BaseModel):
+    nom_auteur: str 
+    prenom_auteur: str 
     nationalite: str
 
     class Config:
@@ -33,7 +41,8 @@ class LivreResponse(BaseModel):
     id_livre: int
     titre: str
     annee_publication: date
-    auteur_id: int
+    nom_auteur: str 
+    prenom_auteur: str
 
     class Config:
         from_attributes = True
@@ -84,8 +93,9 @@ class CreateEmprunt(BaseModel):
 
 class EmpruntResponse(BaseModel):
     id_emprunt: int
-    livre_id: int
-    adherent_id: int
+    titre: str
+    nom_adherent: str
+    prenom_adherent: str
     date_emprunt: date
     date_retour: Optional[date] = None
 
@@ -103,3 +113,9 @@ class Token(BaseModel):
 
 class TokenData(BaseModel):
     email : EmailStr
+
+# modele tableau de bord
+class TableauBord(BaseModel):
+    nbre_adherent: int
+    nbre_livre: int
+    nbre_livre_emprunte: int
